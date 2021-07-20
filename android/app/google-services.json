@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "135683359684",
+    "project_id": "livelocationtracking-dc785",
+    "storage_bucket": "livelocationtracking-dc785.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135683359684:android:6d6ebdffe81e6e9b75da91",
+        "android_client_info": {
+          "package_name": "com.example.live_location_tracking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135683359684-k12ef1sjlv9pi04n3p0l7plmkj2a22r6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDiYNw8rH47UQXVnS0XYLpuuuI0pZ92JiQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135683359684-k12ef1sjlv9pi04n3p0l7plmkj2a22r6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
