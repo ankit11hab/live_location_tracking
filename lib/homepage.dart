@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 class Homepage extends StatefulWidget {
   @override
   _HomepageState createState() => _HomepageState();
@@ -8,14 +9,55 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
 
+
+
   String? _name, _uniqueid;
   Map? data;
   User? loggedInUser;
   final _auth = FirebaseAuth.instance;
   final userCollection = FirebaseFirestore.instance.collection("data");
   //String? name, email, uid;
+  var position;
+  var locationMessage = "";
+  /*Position? _currentPosition;
+  String? _currentAddress;
+  final Geolocator geolocator = Geolocator()..forceAndroidLocationManager;
+  _getCurrentLocation() {
+    geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((Position position) {
+      setState(() {
+        _currentPosition = position;
+      });
+      _getAddressFromLatLng();
+    }).catchError((e) {
+      print(e);
+    });
+  }
 
+  _getAddressFromLatLng() async {
+    try {
+      List<Placemark> p = await geolocator.placemarkFromCoordinates(
+          _currentPosition!.latitude, _currentPosition!.longitude);
+      Placemark place = p[0];
+      setState(() {
+        _currentAddress =
+        "${place.locality}, ${place.postalCode}, ${place.country}";
+      });
+    } catch (e) {
+      print(e);
+    }
+  }*/
 
+  void getCurrentLocation() async {
+    position = await Geolocator().getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    print(position);
+    /*var lastPosition = await Geolocator().getLastKnownPosition();
+    print(lastPosition);*/
+    setState(() {
+      locationMessage = "${position.altitude}, ${position.latitude} , ${position.longitude}";
+    });
+  }
 
 
   void getCurrentUser() async{
@@ -32,7 +74,9 @@ class _HomepageState extends State<Homepage> {
 
   void initState() {
     super.initState();
+    getCurrentLocation();
     getCurrentUser();
+    fetchData();
   }
 
   //Future<void> userdata() async {
@@ -100,9 +144,20 @@ class _HomepageState extends State<Homepage> {
         body: Center(
           child: Column(
             children: [
-              Text(
-                  data.toString()
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0,32,0,0),
+                child: Text(
+                    data.toString(),
+                  style: TextStyle(fontSize: 25)
+                ),
               ),
+              /*Padding(
+                padding: const EdgeInsets.fromLTRB(0,32,0,0),
+                child: Text(
+                    _currentAddress.toString(),
+                    style: TextStyle(fontSize: 25)
+                ),
+              ),*/
               ElevatedButton (
                 onPressed: fetchData,
                 child: Text("View Details"),
@@ -146,12 +201,23 @@ class _HomepageState extends State<Homepage> {
                 onPressed: addUser,
                 child: Text("Submit"),
               ),
+              /*ElevatedButton (
+                onPressed: getCurrentLocation,
+                child: Text("Get Current Location"),
+              ),*/
 
               ElevatedButton (
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                 },
                 child: Text("Sign Out"),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0,32,0,0),
+                child: Text(
+                    locationMessage,
+                    style: TextStyle(fontSize: 25)
+                ),
               ),
 
 

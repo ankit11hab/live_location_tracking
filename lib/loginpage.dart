@@ -47,13 +47,16 @@ class _LoginPageState extends State<LoginPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-                onChanged: (value) {
-                  _email = value;
-                },
-              decoration: InputDecoration(
-                hintText: "Enter Email"
-              )
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0,32,0,0),
+              child: TextField(
+                  onChanged: (value) {
+                    _email = value;
+                  },
+                decoration: InputDecoration(
+                  hintText: "Enter Email"
+                )
+              ),
             ),
             TextField(
               onChanged: (value) {
